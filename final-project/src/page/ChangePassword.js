@@ -18,6 +18,8 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
+import { useParams } from "react-router-dom";
+
 function PaperComponent(props) {
   return (
     <Draggable
@@ -60,6 +62,7 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const ChangePassword = () => {
+  let { id } = useParams();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -72,22 +75,6 @@ const ChangePassword = () => {
   });
   const [selectedID, setSelectedID] = useState(0);
   const [statusForm, setStatusForm] = useState("edit");
-
-  useEffect(() => {
-    if (daftarUser === null) {
-      axios.get(`https://backendexample.sanbersy.com/api/users`).then((res) => {
-        setDaftarUser(
-          res.data.map((el) => {
-            return {
-              id: el.id,
-              username: el.username,
-              password: el.password,
-            };
-          })
-        );
-      });
-    }
-  }, [daftarUser]);
 
   const handleChange = (event) => {
     let typeOfInput = event.target.name;
@@ -106,11 +93,11 @@ const ChangePassword = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleChangePassword = (event) => {
     event.preventDefault();
     if (statusForm === "edit") {
       axios
-        .put(`https://backendexample.sanbersy.com/api/users/${selectedID}`, {
+        .put(`https://backendexample.sanbersy.com/api/users/${id}`, {
           username: input.username,
           password: input.password,
         })
@@ -122,18 +109,6 @@ const ChangePassword = () => {
           setDaftarUser([...daftarUser]);
         });
     }
-  };
-
-  const handleEdit = (event) => {
-    setOpen(true);
-    let idUser = parseInt(event);
-    let dataUser = daftarUser.find((el) => el.id === idUser);
-    setInput({
-      username: dataUser.username,
-      password: dataUser.password,
-    });
-    setSelectedID(idUser);
-    setStatusForm("edit");
   };
 
   return (
@@ -148,7 +123,11 @@ const ChangePassword = () => {
           <Typography component="h1" variant="h5">
             Change Password
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={handleChangePassword}
+          >
             <TextField
               variant="outlined"
               margin="normal"
@@ -175,19 +154,20 @@ const ChangePassword = () => {
               onChange={handleChange}
               value={input.password}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Submit
-            </Button>
+            <Link to={"/"}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={() => {
+                  alert("Sukses");
+                }}
+              >
+                Submit
+              </Button>
+            </Link>
           </form>
         </div>
         <Box mt={8}></Box>

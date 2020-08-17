@@ -43,7 +43,7 @@ const SignUp = () => {
   const [input, setInput] = useState({ username: "", password: "" });
   const [statusForm] = useState("register");
 
-  const handleSubmit = (event) => {
+  const handleSignUp = (event) => {
     event.preventDefault();
 
     if (statusForm === "register") {
@@ -95,7 +95,7 @@ const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <form className={classes.form} noValidate onSubmit={handleSignUp}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -126,15 +126,20 @@ const SignUp = () => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
+            <Link to={"/login"}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={() => {
+                  alert("Sukses");
+                }}
+              >
+                Sign Up
+              </Button>
+            </Link>
             <Grid container>
               <Grid item>
                 <Link to="/login" variant="body2">

@@ -45,7 +45,7 @@ const Login = () => {
   const [user, setUser] = useContext(UserContext);
   const [input, setInput] = useState({ username: "", password: "" });
 
-  const handleSubmit = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
     if (user === null) {
       axios
@@ -105,7 +105,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <form className={classes.form} noValidate onSubmit={handleLogin}>
             <TextField
               variant="outlined"
               margin="normal"

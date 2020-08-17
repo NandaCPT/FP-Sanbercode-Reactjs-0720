@@ -299,7 +299,7 @@ export default function PersistentDrawerLeft() {
             </li>
           )}
           {user && (
-            <Link to={"./changepass"}>
+            <Link to={`./changepass/${user.id}`}>
               <ListItemIcon>
                 <ExitToAppIcon />
                 <ListItemText primary="Ganti Password" />

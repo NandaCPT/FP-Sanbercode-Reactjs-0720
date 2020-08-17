@@ -14,6 +14,7 @@ import GameForm from "./page/game/GameForm";
 import GameCreate from "./page/game/GameCreate";
 import GameTable from "./page/game/GameTable";
 import ChangePassword from "./page/ChangePassword";
+import Footer from "./layout/Footer";
 
 const Routes = () => {
   const [user] = useContext(UserContext);
@@ -30,59 +31,66 @@ const Routes = () => {
     user ? <Redirect to="/" /> : <Route {...props} />;
 
   return (
-    <section>
-      <Switch>
-        <Route path="/gamehome" user={user} component={GameHome}></Route>
-        <Route path="/gametable" user={user} component={GameTable}></Route>
-        <Route path="/gameinfo/:id" user={user} component={GameInfo}></Route>
-        <Route
-          user={user}
-          exact
-          path="/gamesearch/:id"
-          render={(props) => (
-            <GameInfo currentPage="Search Results" {...props} />
-          )}
-        />
-        <PrivateRoute
-          path="/gameform"
-          user={user}
-          component={GameForm}
-        ></PrivateRoute>
-        <PrivateRoute
-          path="/gamecreate"
-          user={user}
-          component={GameCreate}
-        ></PrivateRoute>
-        <PrivateRoute
-          path="/movieform"
-          user={user}
-          component={MovieForm}
-        ></PrivateRoute>
-        <PrivateRoute
-          path="/moviecreate"
-          user={user}
-          component={MovieCreate}
-        ></PrivateRoute>
-        <Route path="/movieinfo/:id" user={user} component={MovieInfo}></Route>
-        <Route path="/movietable" user={user} component={MovieTable}></Route>
-        <LoginRoute path="/login" user={user} component={Login} />
-        <Route path="/signup" user={user} component={SignUp} />
-        <Route
-          user={user}
-          exact
-          path="/moviesearch/:id"
-          render={(props) => (
-            <MovieInfo currentPage="Search Results" {...props} />
-          )}
-        />
-        <PrivateRoute
-          path="/changepass"
-          user={user}
-          component={ChangePassword}
-        ></PrivateRoute>
-        <Route path="/" user={user} component={MovieHome} />
-      </Switch>
-    </section>
+    <>
+      <section>
+        <Switch>
+          <Route path="/gamehome" user={user} component={GameHome}></Route>
+          <Route path="/gametable" user={user} component={GameTable}></Route>
+          <Route path="/gameinfo/:id" user={user} component={GameInfo}></Route>
+          <Route
+            user={user}
+            exact
+            path="/gamesearch/:id"
+            render={(props) => (
+              <GameInfo currentPage="Search Results" {...props} />
+            )}
+          />
+          <PrivateRoute
+            path="/gameform"
+            user={user}
+            component={GameForm}
+          ></PrivateRoute>
+          <PrivateRoute
+            path="/gamecreate"
+            user={user}
+            component={GameCreate}
+          ></PrivateRoute>
+          <PrivateRoute
+            path="/movieform"
+            user={user}
+            component={MovieForm}
+          ></PrivateRoute>
+          <PrivateRoute
+            path="/moviecreate"
+            user={user}
+            component={MovieCreate}
+          ></PrivateRoute>
+          <Route
+            path="/movieinfo/:id"
+            user={user}
+            component={MovieInfo}
+          ></Route>
+          <Route path="/movietable" user={user} component={MovieTable}></Route>
+          <LoginRoute path="/login" user={user} component={Login} />
+          <Route path="/signup" user={user} component={SignUp} />
+          <Route
+            user={user}
+            exact
+            path="/moviesearch/:id"
+            render={(props) => (
+              <MovieInfo currentPage="Search Results" {...props} />
+            )}
+          />
+          <PrivateRoute
+            path="/changepass/:id"
+            user={user}
+            component={ChangePassword}
+          ></PrivateRoute>
+          <Route path="/" user={user} component={MovieHome} />
+        </Switch>
+      </section>
+      <Footer></Footer>
+    </>
   );
 };
 
